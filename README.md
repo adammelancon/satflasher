@@ -18,7 +18,7 @@ The onboard LED blink speed is based on the elevation of the satellite.
 <br>
 NOTE:
 
-You will need to update with wifi.py file with your SSIDs for wireless connectivity.
+You will need to update the wifi.py file with your SSIDs for wireless connectivity.
 
 You will need to replace the API key from your N2YO account to use the [API here for satellite position](https://www.n2yo.com/api/#positions)
 
