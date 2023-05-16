@@ -13,3 +13,6 @@ The onboard LED blink speed is based on the elevation of the satellite.
 
 You will need to replace the API key from your N2YO account to use the API here for satellite position:
 https://www.n2yo.com/api/#positions
+
+
+<a title="Michael H. („Laserlicht“), CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Raspberry_pi_pico_(cropped)_top.jpg"><img width="512" alt="Raspberry pi pico (cropped) top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Raspberry_pi_pico_%28cropped%29_top.jpg/512px-Raspberry_pi_pico_%28cropped%29_top.jpg"></a>
