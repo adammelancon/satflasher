@@ -22,8 +22,8 @@ np = neopixel.NeoPixel(neopin, num_pixels, bpp=3, timing=1)
 np[0] = (2,0,0)  
 np.write()
 
-sleep_timer = 60  # Time to wait between API calls when under the horizon.
-live_timer = 20   # Time to wait between API calls when over the horizon.
+sleep_timer = 90  # Time to wait between API calls when under the horizon.
+live_timer = 10   # Time to wait between API calls when over the horizon.
 # sat_name = "CAPE-3"
 # sat_id = 47309    # SET TO CAPE-3 47309
 sat_name = "ISS"
@@ -84,14 +84,24 @@ def get_satellite_coordinates(satid, la, lo, elev):
 
 async def check_elevation():
     ''' Checks for satellite elevation and updates screen and leds based on result'''
+    
+    prev_elevation = 0
     while True:
         elevation = get_satellite_coordinates(sat_id, lat, long, elev_in_m)
         
         if elevation is not None:
             refresh(ssd, True)
             Label(titlewri, 1, 20, 'Tracking:', invert=True)
-            Label(satwri, 26, 0, sat_name)
-            refresh(ssd)
+            if prev_elevation == 0:
+                Label(satwri, 26, 0, sat_name)
+                refresh(ssd)
+            elif elevation > prev_elevation:
+                Label(satwri, 26, 0, sat_name + " - Asc.")
+                refresh(ssd)
+            elif elevation < prev_elevation:
+                Label(satwri, 26, 0, sat_name + " - Desc.")
+                refresh(ssd)
+
             # Clear previous text
             Label(elevwri, 45, 0, 'Elev: ')
             refresh(ssd)
@@ -100,6 +110,7 @@ async def check_elevation():
             
             refresh(ssd)
             clear_np()
+            prev_elevation = elevation
             
             if elevation <= -15:
                 print("sleep timer < -15")
@@ -123,8 +134,6 @@ async def check_elevation():
                 print("live timer > 15")
                 await asyncio.sleep(live_timer)
                 
-
-
 
 def clear_np():
     ''' simple function to clear ws2812 leds (neopixels)'''
