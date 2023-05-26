@@ -2,8 +2,8 @@ import network
 import time
 
 # Wi-Fi configuration
-ssid_list = ['SSID1', 'SSID2']  # List of Wi-Fi SSIDs to try
-password_list = ['', 'PASSWORD2']  # List of passwords for each Wi-Fi SSID.  SSID1 is open network.
+ssid_list = ['xxx', 'xxx2']  # List of Wi-Fi SSIDs to try
+password_list = ['xxx', 'xxx2']  # List of passwords for each Wi-Fi SSID
 
 
 # Wireless ########################################

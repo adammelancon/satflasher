@@ -1,3 +1,4 @@
+
 # NTP server configuration
 ntp_server = "pool.ntp.org"  # NTP server address
 
