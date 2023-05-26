@@ -30,7 +30,7 @@ elev_in_m = 10
 
 def get_satellite_coordinates(satid, la, lo, elev):
     # API information
-    api_key = "B9BB3M-Y8Z6DM-HF4YPJ-3UEO"
+    api_key = "xxx-xxx-xxx-xxx"
     url = f"https://api.n2yo.com/rest/v1/satellite/positions/{satid}/{la}/{lo}/{elev}/1&apiKey={api_key}"
     
     try:
