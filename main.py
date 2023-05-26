@@ -88,6 +88,7 @@ async def check_elevation():
     prev_elevation = 0
     while True:
         elevation = get_satellite_coordinates(sat_id, lat, long, elev_in_m)
+        elevation = round(elevation, 2)
         
         if elevation is not None:
             refresh(ssd, True)
@@ -123,13 +124,13 @@ async def check_elevation():
                 await asyncio.sleep(live_timer)
                 
             elif 1 <= elevation <= 15:
-                np.fill((0,0,5))
+                np.fill((0,0,15))
                 np.write()
                 print("live timer 1 - 15")
                 await asyncio.sleep(live_timer)
                 
             elif elevation > 15:
-                np.fill((0,3,0))
+                np.fill((0,13,0))
                 np.write()
                 print("live timer > 15")
                 await asyncio.sleep(live_timer)
