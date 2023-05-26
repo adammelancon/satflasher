@@ -18,8 +18,8 @@ np = neopixel.NeoPixel(neopin, num_pixels, bpp=3, timing=1)
 np[0] = (2,0,0)
 np.write()
 
-sleep_timer = 30  # Time to wait between API calls when under the horizon.
-live_timer = 5
+sleep_timer = 60  # Time to wait between API calls when under the horizon.
+live_timer = 20
 sat_name = "CAPE-3"
 sat_id = 47309    # SET TO CAPE-3 47309   
 lat = 30.20128
@@ -30,17 +30,13 @@ elev_in_m = 10
 
 def get_satellite_coordinates(satid, la, lo, elev):
     # API information
-    api_key = "xxx-xxx-xxx-xxx"
+    api_key = "sss-sss-sss-sss"
     url = f"https://api.n2yo.com/rest/v1/satellite/positions/{satid}/{la}/{lo}/{elev}/1&apiKey={api_key}"
     
     try:
         print("Connecting to N2YO API...")
         response = urequests.get(url)
-#         for _ in range(3):
-#             led.on()
-#             time.sleep(0.1)
-#             led.off()
-#             time.sleep(0.1)
+        
         if response.status_code == 200:
             print("Getting updates...")
             Label(elevwri, 45, 0, f'-Elev: updating')
@@ -77,19 +73,6 @@ def get_satellite_coordinates(satid, la, lo, elev):
         print("An error occurred during the API request:", e)
 
     return None
-
-
-
-def blink(interval, duration):
-    end_time = time.time() + duration
-    while time.time() < end_time:
-#         led.toggle()
-#         np[0] = (5,2,5)
-        np.write()
-        time.sleep(interval)
-#     led.off()
-    clear_np()
-
 
 
 async def check_elevation():
@@ -152,5 +135,4 @@ if connect_to_wifi_networks():
     loop.run_forever()
 else:
     print('No Wi-Fi networks available')
-
 
