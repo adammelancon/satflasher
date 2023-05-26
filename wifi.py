@@ -1,10 +1,10 @@
 import network
 import time
+from config_secrets import *
 
 # Wi-Fi configuration
-ssid_list = ['xxx', 'xxx2']  # List of Wi-Fi SSIDs to try
-password_list = ['xxx', 'xxx2']  # List of passwords for each Wi-Fi SSID
-
+ssid_list = ['mwifi', 'PublicLibrary']  # List of Wi-Fi SSIDs to try
+# List of passwords for each Wi-Fi SSID in secrets_config.py
 
 # Wireless ########################################
 def connect_to_wifi(ssid, password):
