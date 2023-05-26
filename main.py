@@ -10,28 +10,33 @@ from synctime import *
 from satdisplay import *
 from config_secrets import *
 
+# Onboard LED setup for Pi Pico
 led = Pin("LED", Pin.OUT)
 led.off()
 
+# WS2812 (Neopixel) setup
 neopin = machine.Pin(2, Pin.OUT)
 num_pixels = 8  # Number of Neopixels in the strip
 np = neopixel.NeoPixel(neopin, num_pixels, bpp=3, timing=1)
-np[0] = (2,0,0)
+# Clear pixels on startup
+np[0] = (2,0,0)  
 np.write()
 
 sleep_timer = 60  # Time to wait between API calls when under the horizon.
-live_timer = 20
-sat_name = "CAPE-3"
-sat_id = 47309    # SET TO CAPE-3 47309   
-lat = 30.20128
-long = -92.04119
-elev_in_m = 10
+live_timer = 20   # Time to wait between API calls when over the horizon.
+# sat_name = "CAPE-3"
+# sat_id = 47309    # SET TO CAPE-3 47309
+sat_name = "ISS"
+sat_id = 25544     # SET TO ISS 25544   
+lat = 30.20128     # Your Lat
+long = -92.04119   # Your Long
+elev_in_m = 10     # Your Elevation in M
 
 
 
 def get_satellite_coordinates(satid, la, lo, elev):
-    # API key is in config_secrets.py
-    
+    '''Connects to n2yo and gets json of satellite data.  Returns elevation.'''
+    # api_key is hidden in config_secrets.py
     url = f"https://api.n2yo.com/rest/v1/satellite/positions/{satid}/{la}/{lo}/{elev}/1&apiKey={api_key}"
     
     try:
@@ -40,7 +45,8 @@ def get_satellite_coordinates(satid, la, lo, elev):
         
         if response.status_code == 200:
             print("Getting updates...")
-            Label(elevwri, 45, 0, f'-Elev: updating')
+            refresh(ssd, True)
+            Label(elevwri, 45, 0, 'Elev: updating')
             refresh(ssd)
             
             for i in range(3):
@@ -77,6 +83,7 @@ def get_satellite_coordinates(satid, la, lo, elev):
 
 
 async def check_elevation():
+    ''' Checks for satellite elevation and updates screen and leds based on result'''
     while True:
         elevation = get_satellite_coordinates(sat_id, lat, long, elev_in_m)
         
@@ -86,18 +93,17 @@ async def check_elevation():
             Label(satwri, 26, 0, sat_name)
             refresh(ssd)
             # Clear previous text
-            Label(elevwri, 45, 0, '-Elev: ')
+            Label(elevwri, 45, 0, 'Elev: ')
             refresh(ssd)
             # Set new elevation value
-            Label(elevwri, 45, 0, f'-Elev: {elevation} deg')
+            Label(elevwri, 45, 0, f'Elev: {elevation} deg')
             
             refresh(ssd)
             clear_np()
             
             if elevation <= -15:
-                led.off()
                 print("sleep timer < -15")
-                await asyncio.sleep(sleep_timer)  # Check according to sleep_timer
+                await asyncio.sleep(sleep_timer)
                 
             elif -15 <= elevation <= 0:
                 np.fill((1,0,0))
@@ -121,12 +127,12 @@ async def check_elevation():
 
 
 def clear_np():
+    ''' simple function to clear ws2812 leds (neopixels)'''
     np.fill((0, 0, 0))
     np.write()
-
+    
+    
 # Run program if connected to Wi-Fi network
-
-
 if connect_to_wifi_networks():
     Label(satwri, 26, 0, "SAT TRACKER")
     refresh(ssd)

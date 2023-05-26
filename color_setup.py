@@ -16,6 +16,9 @@
 # GP5   D1 (SCL)
 # GP4   D2 (SDA)
 
+
+# Display setup for the SSD1306 for nano-gui
+
 import machine
 import gc
 from drivers.ssd1306.ssd1306 import SSD1306_I2C as SSD

@@ -8,7 +8,7 @@ import gui.fonts.freesans20 as freesans20
 import gui.fonts.font6 as font6
 import gui.fonts.font10 as font10
 
-
+# Initial display setup for nano-gui
 
 
 refresh(ssd)  # Initialise and clear display.
@@ -21,9 +21,3 @@ elevwri.set_clip(True, True, False)
 
 satwri = CWriter(ssd, font10, GREEN, BLACK, verbose=False)
 satwri.set_clip(True, True, False)
-
-# # End of boilerplate code. This is our application:
-# Label(titlewri, 1, 20, 'Tracking:', invert=True)
-# Label(satwri, 26, 0, sat)
-# Label(elevwri, 45, 0, f'-Elev: 22.2')
-# refresh(ssd)

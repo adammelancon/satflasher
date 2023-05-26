@@ -3,6 +3,7 @@
 ntp_server = "pool.ntp.org"  # NTP server address
 
 def synchronize_time():
+    ''' Connects to NTP server and sets pi pico rtc'''
     ntptime.host = ntp_server
     try:
         ntptime.settime()
