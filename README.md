@@ -23,4 +23,4 @@ You will need to update the wifi.py file with your SSIDs for wireless connectivi
 
 You will need to replace the API key from your N2YO account to use the [API here for satellite position](https://www.n2yo.com/api/)
 
-<img src="https://s11.gifyu.com/images/ezgif-1-d911aa4b63.gif" width=200 height=500>
+<a href="https://gifyu.com/image/SuMDn"><img src="https://s11.gifyu.com/images/ezgif-1-d911aa4b63.gif" alt="ezgif-1-d911aa4b63.gif" border="0" />Video of it working.</a>
